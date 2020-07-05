@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :password_digest
       t.string :uid
+      t.integer :zipcode
       t.boolean :oauth, default: false
 
       t.timestamps

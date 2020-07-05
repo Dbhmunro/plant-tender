@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2020_07_02_200346) do
     t.string "email"
     t.string "password_digest"
     t.string "uid"
+    t.integer "zipcode"
     t.boolean "oauth", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

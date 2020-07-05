@@ -1,0 +1,14 @@
+<h1>Log In</h1>
+
+<% if @user.errors %>
+    <% @user.errors.full_messages %>
+<% end %>
+<%= form_with scope: @user, url: sessions_path do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <br>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <br>
+    <%= f.submit "Log In" %>
+<% end %>
