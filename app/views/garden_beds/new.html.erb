@@ -1,0 +1,45 @@
+<h1>Create a New Garden Bed</h1>
+<br>
+<%= form_with model: @garden_bed do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <br>
+    <%= f.label :area %>
+    <br>
+    <%= f.radio_button :area_opt,
+    onclick="document.getElementById('garden_bed_area').disabled = false;
+    document.getElementById('garden_bed_area_w').disabled = true;
+    document.getElementById('garden_bed_area_l').disabled = true;
+    document.getElementById('garden_bed_area_d').disabled = true;"%>
+    Area of Garden Bed (sq ft):
+    <%= f.number_field :area, min: 0.1, step: 0.1, :disabled => false %>
+    <br>
+    <%= f.radio_button :area_opt,
+    onclick="document.getElementById('garden_bed_area').disabled = true;
+    document.getElementById('garden_bed_area_w').disabled = false;
+    document.getElementById('garden_bed_area_l').disabled = false;
+    document.getElementById('garden_bed_area_d').disabled = true;"%>
+    Dimensions of Rectangular Garden Bed:
+    <%= f.label :area_w, "Width(ft)" %><%= f.number_field :area_w, min: 0.1, step: 0.1, :disabled => true %>
+    <%= f.label :area_l, "Length(ft)" %><%= f.number_field :area_l, min: 0.1, step: 0.1, :disabled => true %>
+    <br>
+    <%= f.radio_button :area_opt,
+    onclick="document.getElementById('garden_bed_area').disabled = true;
+    document.getElementById('garden_bed_area_w').disabled = true;
+    document.getElementById('garden_bed_area_l').disabled = true;
+    document.getElementById('garden_bed_area_d').disabled = false;"%>
+    Dimension of Circular Garden Bed:
+    <%= f.label :area_w, "Diameter(ft)" %><%= f.number_field :area_d, min: 0.1, step: 0.1, :disabled => true %>
+    <br>
+    <%= f.submit %>
+<% end %>
+
+
+<%# <input onclick="document.getElementById('custom').disabled = false; document.getElementById('charstype').disabled = true;" type="radio" name="type" checked="checked">wanna custom url?
+<input type="text" name="custom" id="custom" placeholder="should be 5 charecters at least" >
+<br><br>
+<input onclick="document.getElementById('custom').disabled = true; document.getElementById('charstype').disabled = false;" type="radio" name="type" value="customurl">random?
+<select name="charstype" id="charstype" disabled="disabled">
+       <option>Letters</option>
+       <option>Number</option>
+</select> %>

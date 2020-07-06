@@ -1,8 +1,10 @@
 module ApplicationHelper
 
     def logged_in?
-        if !!session[:user_id]
-            redirect_to root
-        end
+        !!session[:user_id]
+    end
+
+    def current_user
+        @user = User.find(session[:user_id])
     end
 end

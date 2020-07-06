@@ -1,0 +1,5 @@
+<h1>Your Garden Beds</h1>
+
+<% @garden_beds.each do |bed| %>
+    <%= link_to bed.name garden_bed_path(bed) %> - <%= bed.area%> sq ft<br>
+<% end %>

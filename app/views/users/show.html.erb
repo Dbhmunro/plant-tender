@@ -1,3 +1,18 @@
 <h1>Welcome <%= @user.name %></h1>
 
-<%= link_to "logout", {:controller=> "sessions", :action=> "destroy"}, :method => :delete%>
+<%= link_to "Logout", {:controller=> "sessions", :action=> "destroy"}, :method => :delete%>
+<br>
+<%= link_to "Create a New Garden Bed", new_garden_bed_path %>
+<br>
+<%= link_to "Your Garden Beds", garden_beds_path %>
+<br>
+<h3>Your Planted Plants<h3>
+
+<br>
+<h3>Your Loved Plants</h3>
+
+
+<br>
+<br>
+<br>
+<iframe src="https://www.plantmaps.com/hardiness-zone-zipcode.php" name="Find the USDA Hardiness Zone for your Zipocde and Map it" width="210" scrolling="No" frameborder="0" marginheight="0" marginwidth="0">[Your browser doesn't support IFrames. <a href="//www.plantmaps.com/hardiness-zone-zipcode.php" target="_blank">Click here</a> to find the USDA hardiness zone for your zipcode.]</iframe>

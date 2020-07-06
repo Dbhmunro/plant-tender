@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :users, except: [:index]
-
   resources :sessions, only: [:new, :create, :destroy]
+  resources :users, except: [:index]
+  resources :garden_beds do
+    resources :plants, only: [:index, :show]
+  end
+  resources :plants, only: [:index, :show]
   
   root to: 'sessions#home'
 

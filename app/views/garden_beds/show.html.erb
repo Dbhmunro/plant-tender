@@ -1,0 +1,18 @@
+<h1>Garden Bed - <%= @garden_bed.name %></h1>
+
+<p>Garden area(sq ft): <%= @garden_bed.area %></p>
+<p>Remaining garden area(sq ft): </p>
+<br>
+<h3>Plants in Bed</h3>
+<ul>
+<% @plants.each do |plant| %>
+    <li><%= plant.name %> - <%= plant.count %> Update Count - Delete</li>
+<% end %>
+</ul>
+
+<h3>Companion Plants not in Garden Bed</h3>
+<ul>
+    <li>Plant Name - plant area needed - pairs with plant - number field (add to garden)</li>
+</ul>
+
+<%= link_to "Find Plants for this Bed", garden_bed_plants_path(@garden_bed) %>
