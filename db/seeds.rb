@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Plant.create(name: '', scientific_name: '', spread: , image_url: '')
+Plant.create(name: '', scientific_name: '', spread: , image_url: '')
+Plant.create(name: 'Beans, Pole', scientific_name: 'Phaseolus vulgaris', spread: 5, image_url: '')
+Plant.create(name: 'Beans, Bush', scientific_name: 'Phaseolus vulgaris', spread: 3, image_url: '')

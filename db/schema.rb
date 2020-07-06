@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_06_203511) do
+ActiveRecord::Schema.define(version: 2020_07_06_215321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "garden_beds", force: :cascade do |t|
     t.string "name"
-    t.integer "area"
+    t.decimal "area", precision: 2
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 2020_07_06_203511) do
     t.integer "garden_bed_id"
     t.integer "plant_id"
     t.integer "plant_count"
+  end
+
+  create_table "plant_pairs", force: :cascade do |t|
+    t.integer "plant_a_id"
+    t.integer "plant_b_id"
+    t.boolean "friend"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "plants", force: :cascade do |t|
