@@ -17,16 +17,10 @@ ActiveRecord::Schema.define(version: 2020_07_06_215321) do
 
   create_table "garden_beds", force: :cascade do |t|
     t.string "name"
-    t.decimal "area", precision: 2
+    t.decimal "area", precision: 9, scale: 2
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "garden_beds_plants", id: false, force: :cascade do |t|
-    t.integer "garden_bed_id"
-    t.integer "plant_id"
-    t.integer "plant_count"
   end
 
   create_table "plant_pairs", force: :cascade do |t|
@@ -35,6 +29,12 @@ ActiveRecord::Schema.define(version: 2020_07_06_215321) do
     t.boolean "friend"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "plantings", id: false, force: :cascade do |t|
+    t.bigint "garden_bed_id", null: false
+    t.bigint "plant_id", null: false
+    t.integer "plant_count"
   end
 
   create_table "plants", force: :cascade do |t|

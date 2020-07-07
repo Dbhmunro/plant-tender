@@ -14,13 +14,16 @@ class GardenBedsController < ApplicationController
     end
     
     def create
-        # if params[:bed][:dimension] == "area"
-        
         # if params[:bed][:dimension] == "rectangle"
             # params[:bed][:dimension][:area] = (params[:bed][:dimension][:area_w] * params[:bed][:dimension][:area_l])
         # elsif params[:bed][:dimension] == "circle"
         # end
-        @garden_bed = GardenBed.new(bed_params)
+        @garden_bed = @user.garden_beds.build(bed_params)
+        if bed.save
+            redirect_to garden_bed_path(@garden_bed)
+        else
+            render :new
+        end
     end
     
     def edit
