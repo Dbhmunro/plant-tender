@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-
+    before_action :already_logged_in?, only: [:home, :new]
+    
     def home
     end
 
@@ -12,6 +13,7 @@ class SessionsController < ApplicationController
     end
 
     def new
+        # byebug
         @user = User.new
     end
 
@@ -35,5 +37,11 @@ class SessionsController < ApplicationController
 
     def omni_req
         request.env['omniauth.auth']
+    end
+
+    def already_logged_in?
+        if logged_in?
+            redirect_to user_path(User.find(session[:user_id]))
+        end
     end
 end

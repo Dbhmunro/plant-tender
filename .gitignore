@@ -30,6 +30,7 @@
 
 # Ignore env file
 .env
+
 /public/packs
 /public/packs-test
 /node_modules

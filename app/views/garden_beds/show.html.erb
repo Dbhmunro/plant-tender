@@ -1,18 +1,44 @@
 <h1>Garden Bed - <%= @garden_bed.name %></h1>
-
+<%= link_to "Edit Garden Bed", edit_garden_bed_path(@garden_bed)%>
 <p>Garden area(sq ft): <%= @garden_bed.area %></p>
 <p>Remaining garden area(sq ft): </p>
 <br>
 <h3>Plants in Bed</h3>
 <ul>
-<% @plants.each do |plant| %>
-    <li><%= plant.name %> - <%= plant.count %> Update Count - Delete</li>
+<% x = @plants_in_bed.length - 1 %>
+<% while x >= 0 %>
+    <li><%= link_to @plants_in_bed[x].name, plant_path(@plants_in_bed[x]) %>
+    <%= form_with model: @plantings[x], method: "patch" do |f| %>
+        <%= f.hidden_field :id %>
+        <%= f.hidden_field :plant_id %>
+        <%= f.hidden_field :garden_bed_id %>
+        <%= f.label :plant_count, "# Planted " %>
+        <%= f.number_field :plant_count, min: 1, step: 1 %>
+        <%= f.submit "Update Plants in Bed" %>
+    <% end %>
+    <%= form_with model: @plantings[x], method: "delete" do |f| %><%= f.hidden_field :id %><%= f.hidden_field :garden_bed_id %><%= f.submit "Delete" %><% end %></li>
+     <br>
+    <% x = x-1 %>
 <% end %>
 </ul>
 
 <h3>Companion Plants not in Garden Bed</h3>
-<ul>
-    <li>Plant Name - plant area needed - pairs with plant - number field (add to garden)</li>
-</ul>
-
+<% if @companions.any? %>
+    <% @companions.each do |pair| %>
+        <% if !@plants_in_bed.include?(pair) %>
+            <%= link_to pair.name, plant_path(pair) %> - Spacing: <%= pair.spread %> in. - Pairs with ____ currently in garden <br>
+            <%= form_with model: Planting.new do |f| %>
+                <%= f.hidden_field :garden_bed_id, value: @garden_bed.id %>
+                <%= f.hidden_field :plant_id, value: pair.id %>
+                <%= f.label :plant_count, "Number to Plant " %>
+                <%= f.number_field :plant_count, min: 1, step: 1 %>
+                <%= f.submit "Add to Bed" %>
+            <% end %>
+            <br>
+            <br>
+        <% end %>
+    <% end %>
+<% end %>
+<br>
+<br>
 <%= link_to "Find Plants for this Bed", garden_bed_plants_path(@garden_bed) %>

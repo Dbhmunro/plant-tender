@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+    before_action :require_login, only: [:show, :edit]
 
     def show
-        @user = User.find_by(id: params[:id])
+        current_user
+        @fav_plants = @user.fav_plants
     end
 
     def new
@@ -19,16 +21,13 @@ class UsersController < ApplicationController
     end
 
     def edit
-        @user = User.find_by(id: params[:user_id])
-        if session[:user_id] != @user.id
-            @user = User.find_by(id: session[:user_id])
+        if current_user.id != params[:id].to_i
             redirect_to edit_user_path(@user)
         end
     end
     
     def update
-        @user = User.find_by(id: params[:user_id])
-        if @user.update(user_params)
+        if current_user.update(user_params)
             redirect_to user_path(@user)
         else
             render :edit
@@ -36,8 +35,7 @@ class UsersController < ApplicationController
     end
     
     def destroy
-        @user = User.find_by(id: params[:user_id])
-        @user.destroy
+        current_user.destroy
     end
 
     private

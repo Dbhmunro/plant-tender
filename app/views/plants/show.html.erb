@@ -1,0 +1,53 @@
+<h1><%= @plant.name %></h1>
+<h2><%= @plant.scientific_name %></h2>
+<br>
+<p>Spacing: <%= @plant.spread %>in.</p>
+<br>
+<% if @companions.any? %>
+    <h3>Companion Plants</h3>
+    <% @companions.each do |pair| %>
+        <%= link_to pair.name, plant_path(pair) %>
+    <% end %>
+<% end %>
+<% if @antagonists.any? %>
+    <h3>Antagonist Plants</h3>
+    <% @antagonists.each do |pair| %>
+        <%= link_to pair.name, plant_path(pair) %>
+    <% end %>
+<% end %>
+<br>
+<br>
+<% if !!session[:user_id] %>
+    <% if @user.plants.include?(@plant) %>
+        <h3>Currently Planted</h3>
+            <% @user.garden_beds.each do |bed| %>
+                <% if bed.plants.include?(@plant) %>
+                    <strong><%= link_to bed.name, garden_bed_path(bed) %></strong>
+                    <% planting = Planting.find_by(garden_bed_id: bed.id, plant_id: @plant.id)%>
+                    <%= form_with model: planting do |f| %>
+                        <%= f.hidden_field :plant_id %>
+                        <%= f.hidden_field :garden_bed_id%>
+                        <%= f.label :plant_count, "No. of Plants" %>
+                        <%= f.number_field :plant_count, min: 1, step: 1 %>
+                        <%= f.submit "Update Plants in Bed" %>
+                    <% end %>
+                    <%= form_with model: planting, method: "delete" do |f| %><%= f.hidden_field :id %><%= f.hidden_field :garden_bed_id %><%= f.submit "Delete Planting" %><% end %>
+                <% end %>
+            <% end %>
+    <% end %>
+    <%# if @user.garden_beds_without_plant.length != 0 %>
+    <h3>Add Plants to Your Garden</h3>
+        <%= form_with model: @planting do |f| %>
+        <%= f.hidden_field :plant_id, value: @plant.id %>
+            <%= f.label :garden_bed_id, "Select Your Garden Bed"%>
+            <%= f.collection_select :garden_bed_id, @user.garden_beds, :id, :name %><%# need to exempt ones with plant already %>
+            <br>
+            <%= f.label :plant_count, "No. of Plants" %>
+            <%= f.number_field :plant_count, min: 1, step: 1 %>
+            <br>
+            <%= f.submit "Add Plants to Bed" %>
+        <% end %>
+        <br>
+        <br>
+<% end %>
+

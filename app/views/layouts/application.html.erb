@@ -9,7 +9,22 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body> <%# if !!session[:user_id] show one header bar, otherwise show another, except for root(this through template)%>
+    <% if !!session[:user_id] %>
+      <div id="header">
+        <a href= <%= user_path(@user) %>><button>Home</button></a>
+        <a href= <%= plants_path%>><button>Plants</button></a>
+        <a href= <%= garden_beds_path %>><button>Garden Beds</button></a>
+        <a href= <%= edit_user_path(@user) %>><button>Edit Profile</button></a>
+      </div>
+    <% else %>
+      <div id="header">
+        <a href= <%= plants_path%>><button>Plants</button></a>
+        <a href= <%= root_path %>><button>Home</button></a>
+        <a href= <%= new_session_path %>><button>Login</button></a>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

@@ -4,5 +4,5 @@ class GardenBed < ApplicationRecord
     has_many :plants, through: :plantings
 
     validates_presence_of :name, :area
-    # :area >0
+    validates :area, numericality: { greater_than: 0 }
 end

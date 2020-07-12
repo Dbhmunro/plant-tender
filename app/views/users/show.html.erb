@@ -1,16 +1,29 @@
 <h1>Welcome <%= @user.name %></h1>
-
-<%= link_to "Logout", {:controller=> "sessions", :action=> "destroy"}, :method => :delete%>
+<%= link_to "Edit Profile", edit_user_path(@user) %><br>
 <br>
-<%= link_to "Create a New Garden Bed", new_garden_bed_path %>
+<%= link_to "Logout", {:controller=> "sessions", :action=> "destroy"}, :method => :delete%><br>
 <br>
-<%= link_to "Your Garden Beds", garden_beds_path %>
-<br>
+<%= link_to "Create a New Garden Bed", new_garden_bed_path %><br>
+<%= link_to "Your Garden Beds", garden_beds_path %><br>
 <h3>Your Planted Plants<h3>
-
+<% if @user.plants.any? %>
+<ul>
+    <% @user.plants.uniq.each do |plant| %>
+        <li><%= link_to plant.name, plant_path(plant) %> - <%= plant.spread %> in</li>
+    <% end %>
+</ul>
+<% end %>
 <br>
 <h3>Your Loved Plants</h3>
-
+<% if @fav_plants.any? %>
+<ul>
+    <% @fav_plants.each do |plant| %>
+        <li><%= link_to plant.name, plant_path(plant) %> - <%= plant.spread %> in - DELETE FAV</li>
+    <% end %>
+</ul>
+<% else %>
+    <%= link_to "Find Some Favorites", plants_path %>
+<% end %>
 
 <br>
 <br>

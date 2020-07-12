@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :plants, only: [:index, :show]
   end
   resources :plants, only: [:index, :show]
+  resources :plantings, only: [:create, :update, :destroy]
   
   root to: 'sessions#home'
 
