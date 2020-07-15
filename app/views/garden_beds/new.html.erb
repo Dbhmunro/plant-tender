@@ -1,6 +1,18 @@
 <h1>Create a New Garden Bed</h1>
 <br>
-<%= form_with model: @garden_bed do |f| %>
+<% if @garden_bed.errors.any? %>
+    <div id="error_explanation">
+    <h2><%= pluralize(@garden_bed.errors.count, "error") %> prohibited this garden bed from being saved:</h2>
+
+    <ul>
+    <% @garden_bed.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+    <% end %>
+    </ul>
+    </div>
+<% end %>
+
+<%= form_with(model: @garden_bed, local: true) do |f| %>
 <%= f.hidden_field :user_id, :value => session[:user_id] %>
     <% if params[:plant_id] %>
         <%= f.hidden_field :plant_ids, value: @plant.id %>

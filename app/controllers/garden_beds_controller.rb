@@ -40,15 +40,15 @@ class GardenBedsController < ApplicationController
         # byebug
         # params.require(:garden_bed).permit(:area_opt, :area, :area_w, :area_l, :area_d)
         if params[:garden_bed][:area_opt] == "Rectangular" # and not empty
-            params[:garden_bed][:area] = (params[:garden_bed][:area_w].to_i * params[:garden_bed][:area_l].to_i)
+            params[:garden_bed][:area] = (params[:garden_bed][:area_w].to_f * params[:garden_bed][:area_l].to_f)
         elsif params[:garden_bed][:area_opt] == "Circular"
-            params[:garden_bed][:area] = ((params[:garden_bed][:area_d].to_i / 2)*3.1415)**2
+            params[:garden_bed][:area] = ((params[:garden_bed][:area_d].to_f / 2)*3.1415)**2
         end
         @garden_bed = GardenBed.new(bed_params)
         if @garden_bed.save
             redirect_to garden_bed_path(@garden_bed)
         else
-            render :new
+            render new_garden_bed_path
         end
     end
     
