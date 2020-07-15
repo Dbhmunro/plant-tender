@@ -3,7 +3,7 @@
 <%= form_with model: @garden_bed do |f| %>
 <%= f.hidden_field :user_id, :value => session[:user_id] %>
     <% if params[:plant_id] %>
-        <%= f.hidden_field :plant_ids %>
+        <%= f.hidden_field :plant_ids, value: @plant.id %>
     <% end %>
     <%= f.label :name %>
     <%= f.text_field :name %>

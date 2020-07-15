@@ -30,7 +30,7 @@ class GardenBedsController < ApplicationController
     def new
         @garden_bed = GardenBed.new
         if params[:plant_id]
-            @garden_bed = GardenBed.new(plant_ids: params[:plant_id])
+            @plant = Plant.find_by(id: params[:plant_id])
         end
     end
     
@@ -42,7 +42,6 @@ class GardenBedsController < ApplicationController
         elsif params[:garden_bed][:area_opt] == "Circular"
             params[:garden_bed][:area] = ((params[:garden_bed][:area_d].to_i / 2)*3.1415)**2
         end
-        byebug
         @garden_bed = GardenBed.new(bed_params)
         if @garden_bed.save
             redirect_to garden_bed_path(@garden_bed)
