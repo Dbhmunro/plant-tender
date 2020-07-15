@@ -35,15 +35,17 @@ class PlantsController < ApplicationController
                 end
             end
         end
-        if @user.plants.include?(@plant)
-            @garden_beds_without_plant = @user.garden_beds_without_plant(@plant)
-            @garden_beds_with_plant = @user.garden_beds_with_plant(@plant)
-            @plantings = []
-            @garden_beds_with_plant.each do |bed|
-                @plantings << Planting.find_by(garden_bed_id: bed.id, plant_id: @plant.id)
+        if logged_in?
+            if @user.plants.include?(@plant)
+                @garden_beds_without_plant = @user.garden_beds_without_plant(@plant)
+                @garden_beds_with_plant = @user.garden_beds_with_plant(@plant)
+                @plantings = []
+                @garden_beds_with_plant.each do |bed|
+                    @plantings << Planting.find_by(garden_bed_id: bed.id, plant_id: @plant.id)
+                end
+            else
+                @garden_beds_without_plant = @user.garden_beds
             end
-        else
-            @garden_beds_without_plant = @user.garden_beds
         end
         # byebug
         # if logged_in? && !!params[:bed_id]

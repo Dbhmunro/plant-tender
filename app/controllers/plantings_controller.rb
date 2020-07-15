@@ -30,6 +30,6 @@ class PlantingsController < ApplicationController
     private
 
     def planting_params
-        params.require(:planting).permit(:plant_id, :garden_bed_id, :plant_count)
+        params.require(:planting).permit(:id, :plant_id, :garden_bed_id, :plant_count)
     end
 end

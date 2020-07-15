@@ -11,8 +11,10 @@ class GardenBedsController < ApplicationController
         @plantings = []
         @companions = []
         @antagonists = []
+        @garden_area_remaining = @garden_bed.area
         @plants_in_bed.each do |plant|
             planting = Planting.find_by(plant_id: plant.id, garden_bed_id: @garden_bed.id)
+            @garden_area_remaining = @garden_area_remaining - calculate_area_of_plant(plant.spread, planting.plant_count)
             @plantings << planting
             if plant.pairs.any?
                 plant.pairs.each do |pair|
@@ -80,6 +82,10 @@ class GardenBedsController < ApplicationController
     
     def bed_of_user?
         @user.garden_beds.include?(@garden_bed)
+    end
+
+    def calculate_area_of_plant(plant_spread, plant_count)
+        ((plant_spread**2)/144)*plant_count
     end
     
 end
