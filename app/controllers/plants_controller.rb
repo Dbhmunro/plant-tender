@@ -3,7 +3,15 @@ class PlantsController < ApplicationController
     
     def index
         # byebug
-        @plants = Plant.all
+        if params[:search]
+            @plants = Plant.name_like(params[:search])
+        else
+            @plants = Plant.all
+        end
+        if !!params[:garden_bed_id]
+            bed = GardenBed.find_by(id: params[:garden_bed_id])
+            @plants = @plants - bed.plants
+        end
         # include plant sorting
         # if logged_in? && !!params[:garden_bed_id]
         #     @planted_plants = current_user.plants
@@ -27,6 +35,16 @@ class PlantsController < ApplicationController
                 end
             end
         end
+        if @user.plants.include?(@plant)
+            @garden_beds_without_plant = @user.garden_beds_without_plant(@plant)
+            @garden_beds_with_plant = @user.garden_beds_with_plant(@plant)
+            @plantings = []
+            @garden_beds_with_plant.each do |bed|
+                @plantings << Planting.find_by(garden_bed_id: bed.id, plant_id: @plant.id)
+            end
+        else
+            @garden_beds_without_plant = @user.garden_beds
+        end
         # byebug
         # if logged_in? && !!params[:bed_id]
         #     @planted_plants = current_user.plants
@@ -42,5 +60,9 @@ class PlantsController < ApplicationController
         if logged_in?
             current_user
         end
+    end
+
+    def search_params
+        params.require(:plant).permit(:search)
     end
 end

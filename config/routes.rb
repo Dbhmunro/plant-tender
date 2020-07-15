@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :garden_beds do
     resources :plants, only: [:index, :show]
   end
-  resources :plants, only: [:index, :show]
+  resources :plants, only: [:index, :show] do
+    resources :garden_beds, only: [:new, :create]
+  end
   resources :plantings, only: [:create, :update, :destroy]
   
   root to: 'sessions#home'

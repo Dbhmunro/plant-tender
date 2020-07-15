@@ -2,6 +2,9 @@
 <br>
 <%= form_with model: @garden_bed do |f| %>
 <%= f.hidden_field :user_id, :value => session[:user_id] %>
+    <% if params[:plant_id] %>
+        <%= f.hidden_field :plant_ids %>
+    <% end %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <br>

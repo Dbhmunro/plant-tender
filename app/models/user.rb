@@ -9,4 +9,25 @@ class User < ApplicationRecord
     validates :email, uniqueness: true
 
     has_secure_password
+
+    def garden_beds_without_plant(plant)
+        beds = []
+        self.garden_beds.each do |bed|
+            if !bed.plants.include?(plant)
+                beds << bed
+            end
+        end
+        beds
+    end
+
+    def garden_beds_with_plant(plant)
+        beds = []
+        self.garden_beds.each do |bed|
+            if bed.plants.include?(plant)
+                beds << bed
+            end
+        end
+        beds
+    end
+
 end
