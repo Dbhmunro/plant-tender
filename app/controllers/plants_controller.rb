@@ -16,8 +16,10 @@ class PlantsController < ApplicationController
         # if logged_in? && !!params[:garden_bed_id]
         #     @planted_plants = current_user.plants
         #     @plants_in_bed = garden_bed.plants
+        #     @fav_plants = user.fav_plants
         # elsif logged_in?
         #     @planted_plants = current_user.plants
+        #     @fav_plants = user.fav_plants
         # end
     end
     

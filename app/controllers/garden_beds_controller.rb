@@ -85,7 +85,7 @@ class GardenBedsController < ApplicationController
     end
 
     def calculate_area_of_plant(plant_spread, plant_count)
-        ((plant_spread**2)/144)*plant_count
+        ((plant_spread**2)/144)*plant_count #change plant_spread and plant_count to a float to ensure the carrots with 2in show up as taking up space in garden
     end
     
 end

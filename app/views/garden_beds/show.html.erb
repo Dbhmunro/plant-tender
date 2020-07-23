@@ -17,7 +17,7 @@
         <%= f.submit "Update Plants in Bed" %>
     <% end %>
     <%= form_with model: @plantings[x], method: "delete" do |f| %><%= f.hidden_field :id %><%= f.hidden_field :garden_bed_id %><%= f.submit "Delete" %><% end %></li>
-     <br>
+    <br>
     <% x = x-1 %>
 <% end %>
 </ul>

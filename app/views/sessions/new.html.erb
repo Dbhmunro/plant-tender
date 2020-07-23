@@ -3,7 +3,7 @@
 <% if @user.errors %>
     <% @user.errors.full_messages %>
 <% end %>
-<%= form_with scope: @user, url: sessions_path do |f| %>
+<%= form_with(scope: @user, url: sessions_path, local: true) do |f| %>
     <%= f.label :email %>
     <%= f.text_field :email %>
     <br>
